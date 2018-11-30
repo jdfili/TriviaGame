@@ -3,65 +3,79 @@ $(document).ready(function () {
     var incorrect = 0;
     var unanswered = 0;
     var currentSet = 0;
-    var totQuestions = 7;
+    var totQuestions = 8;
     var count = false
-    var time = 9;
+    var time;
     var intervalId;
     var questions = [{
-        "question": "Who was the Defensive Player of the year for the 2017-2018 season?",
+        "question": "Who was the last Jazz player to win an MVP?",
+        "option1": "Darrel Griffith",
+        "option2": "Adrian Dantley",
+        "option3": "Karl Malone",
+        "option4": "Pete Maravich",
+        "answer": "Karl Malone",
+        "wrong": "Sorry, the correct answer was Karl Malone"
+    }, {
+        "question": "Who has the most three-pointers made in a season, in franchise history?",
+        "option1": "Gordon Hayward",
+        "option2": "Mehmet Okur",
+        "option3": "Kyle Korver",
+        "option4": "Joe Ingles",
+        "answer": "Joe Ingles",
+        "wrong": "Uh-oh you friccin moron, the correct answer was Joe Ingles!"
+    }, {
+        "question": "Which of these players has NEVER been an all-star?",
         "option1": "Rudy Gobert",
-        "option2": "Joel Embiid",
-        "option3": "James Harden",
-        "option4": "Anthony Davis",
-        "answer": "Rudy Gobert"
+        "option2": "Deron Williams",
+        "option3": "Andrei Kirilenko",
+        "option4": "Carlos Boozer",
+        "answer": "Rudy Gobert",
+        "wrong": "WRONG! La bonne réponse était Rudy Gobert"
     }, {
-        "question": "Who has the record for most three-pointers made in a game?",
-        "option1": "Steph Curry",
-        "option2": "Shaq",
-        "option3": "Klay Thompson",
-        "option4": "Ray Allen",
-        "answer": "Klay Thompson"
+        "question": "Which of these player was given the nickname 'Pistol'? ",
+        "option1": "CJ Miles",
+        "option2": "Pete Maravich",
+        "option3": "Donovan Mitchell",
+        "option4": "Jeff Hornacek",
+        "answer": "Pete Maravich",
+        "wrong": "Nope! The correct answer was Pete Maravich. Dont worry I'll forgive you this time..."
     }, {
-        "question": "Who has the most career assists in NBA history?",
-        "option1": "Jason Kidd",
-        "option2": "John Stockton",
-        "option3": "Steve Nash",
-        "option4": "Magic Johnson",
-        "answer": "John Stockton"
+        "question": "Which of these names has NEVER been a coach for the Utah Jazz?",
+        "option1": "Frank Layden",
+        "option2": "Tyrone Corbin",
+        "option3": "Quin Snyder",
+        "option4": "Andy Larsen",
+        "answer": "Andy Larsen",
+        "wrong": "Incorrect...I don't know if I can forgive you for this one"
     }, {
-        "question": "Who of these players has NOT won an MVP?",
-        "option1": "Derrick Rose",
-        "option2": "Scottie Pippen",
-        "option3": "Tim Duncan",
-        "option4": "Dirk Nowitski",
-        "answer": "Scottie Pippen"
+        "question": "Which of these countries does not have a player currently playing for the Utah Jazz?",
+        "option1": "Brazil",
+        "option2": "France",
+        "option3": "Australia",
+        "option4": "Canada",
+        "answer": "Canada",
+        "wrong": "Wrong! Brazil: Raul Neto, France: Rudy Gobert, Australia: Joe Ingles, and Dante Exum"
     }, {
-        "question": "Who is the shortest player to ever play in the NBA?",
-        "option1": "Earl Boykins",
-        "option2": "Chris Paul",
-        "option3": "Mugsy Bogues",
-        "option4": "Manute Bol",
-        "answer": "Mugsy Bogues"
+        "question": "During the 1993 All-Star Game held in Salt Lake City, who were the co-recipients for the game's MVP award? ",
+        "option1": "Michael Jordan and Karl Malone",
+        "option2": "Isiah Thomas and Shaquille O'Neal",
+        "option3": "John Stockton and Karl Malone",
+        "option4": "Charles Barkley and Michael Jordan",
+        "answer": "John Stockton and Karl Malone",
+        "wrong": "Sorry, the answer was John Stockton and Karl Malone. Karl Malone had 28 points and 10 rebounds, while Stockton posted 9 points to go along with 15 assists"
     }, {
-        "question": "Who is the winngest franchise is NBA history WITHOUT a championship?",
-        "option1": "Phoenix Suns",
-        "option2": "Oklahoma City Thunder",
-        "option3": "Charlotte Hornets",
-        "option4": "Utah Jazz",
-        "answer": "Utah Jazz"
-    }, {
-        "question": "What University did all-star player Damian Lillard play for?",
-        "option1": "Duke",
-        "option2": "Weber State",
-        "option3": "Stevens Hennager",
-        "option4": "UCLA",
-        "answer": "Weber State"
+        "question": "Bonus question: Did Jordan push off?",
+        "option1": "Yes",
+        "option2": "Yes",
+        "option3": "Yes",
+        "option4": "Yes",
+        "answer": "Yes"
     }
     ]
-
+    //---------------set-up functions------------------------------//
     function reset() {
-        count = true;
         time = 10;
+        count = true;
         intervalId = setInterval(timer, 1000);
         $(".game").show();
         $(".results").hide();
@@ -74,9 +88,11 @@ $(document).ready(function () {
         $(".option4").text(questions[currentSet].option4);
     }
     function timer() {
+        count = true;
         if (count == true) {
-            $(".timer").text("Time left: " + time)}
-        time--;
+            $(".timer").text("Time left: " + time)
+            time--;
+        }
         if (time == -1) {
             unanswered++;
             currentSet++;
@@ -105,7 +121,7 @@ $(document).ready(function () {
         clearInterval(intervalId)
         $(".game").hide();
         $(".feedback").show();
-        $(".feedback").text("Sorry, the correct answer was " + questions[currentSet - 1].answer);
+        $(".feedback").text(questions[currentSet - 1].wrong);
         if (totQuestions == currentSet) {
             setTimeout(results, 1000 * 3);
         }
@@ -125,10 +141,9 @@ $(document).ready(function () {
         var playAgain = $("<button>");
         playAgain.text("Play Again");
         playAgain.addClass("btn");
-        playAgain.addClass("playAgain");
         playAgain.addClass("btn-primary");
         $(".againBtn").append(playAgain);
-        $(".playAgain").on("click", function () {
+        $(playAgain).on("click", function () {
             currentSet = 0;
             correct = 0;
             incorrect = 0;
@@ -136,7 +151,7 @@ $(document).ready(function () {
             reset();
         })
     }
-
+    //----------------------------------------------------------------//
     $(".timer").hide();
 
     $(".btn").on("click", function () {

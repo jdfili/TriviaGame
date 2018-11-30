@@ -1,4 +1,4 @@
-.guess{
+.guess {
     transition: 0.07s;
 }
 
@@ -9,3 +9,20 @@
 .timer {
     font-weight: bold;
 }
+body{
+    background-image: url(../images/jazzlogo.jpg);
+}
+.jumbotron{
+    background: gold;;
+    margin: 250px;
+    border: 2px solid orange;
+}
+#title {
+    color: gold;
+    background: rgb(12, 12, 139);
+}
+.question {
+    font-size: 24px;
+    font-weight: bold;
+}
+
