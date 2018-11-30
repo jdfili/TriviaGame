@@ -4,7 +4,9 @@ $(document).ready(function () {
     var unanswered = 0;
     var currentSet = 0;
     var totQuestions = 7;
-
+    var count = false
+    var time = 9;
+    var intervalId;
     var questions = [{
         "question": "Who was the Defensive Player of the year for the 2017-2018 season?",
         "option1": "Rudy Gobert",
@@ -57,56 +59,104 @@ $(document).ready(function () {
     }
     ]
 
-
-
-    $(".btn").on("click", function () {
-        $(".btn").hide();
-        reset();
-    })
-
     function reset() {
+        count = true;
+        time = 10;
+        intervalId = setInterval(timer, 1000);
+        $(".game").show();
+        $(".results").hide();
+        $(".againBtn").empty();
+        $(".feedback").hide();
         $(".question").text(questions[currentSet].question);
         $(".option1").text(questions[currentSet].option1);
         $(".option2").text(questions[currentSet].option2);
         $(".option3").text(questions[currentSet].option3);
         $(".option4").text(questions[currentSet].option4);
     }
-    function results() {
-        $(".game").hide();
-        $(".correct").text("Correct: " + correct);
-        $(".incorrct").text("Incorrect: " + incorrect)
-        $(".unanswered").text("Unanswered: " + unanswered)
-    }
-
-    $(".guess").on("click", function () {
-        if (totQuestions == currentSet) {
-            results()
-            return;
-        }
-        if ($(this).text() == questions[currentSet].answer) {
-            console.log(($(this).text()))
-            correct++
-            currentSet++
+    function timer() {
+        if (count == true) {
+            $(".timer").text("Time left: " + time)}
+        time--;
+        if (time == -1) {
+            unanswered++;
+            currentSet++;
             if (totQuestions == currentSet) {
                 results()
-                return;
             }
             else {
-                reset();
-                return;
+                wrong();
             }
+        }
+    }
+    function right() {
+        count = false;
+        clearInterval(intervalId);
+        $(".game").hide();
+        $(".feedback").show();
+        $(".feedback").text("You got it!");
+        if (totQuestions == currentSet) {
+            setTimeout(results, 1000 * 3);
+        }
+        else
+            setTimeout(reset, 1000 * 3);
+    }
+    function wrong() {
+        count = false;
+        clearInterval(intervalId)
+        $(".game").hide();
+        $(".feedback").show();
+        $(".feedback").text("Sorry, the correct answer was " + questions[currentSet - 1].answer);
+        if (totQuestions == currentSet) {
+            setTimeout(results, 1000 * 3);
+        }
+        else {
+            setTimeout(reset, 1000 * 3);
+        }
+    }
+    function results() {
+        count = false;
+        clearInterval(intervalId);
+        $(".game").hide();
+        $(".feedback").hide();
+        $(".results").show();
+        $(".correct").text("Correct: " + correct);
+        $(".incorrct").text("Incorrect: " + incorrect);
+        $(".unanswered").text("Unanswered: " + unanswered);
+        var playAgain = $("<button>");
+        playAgain.text("Play Again");
+        playAgain.addClass("btn");
+        playAgain.addClass("playAgain");
+        playAgain.addClass("btn-primary");
+        $(".againBtn").append(playAgain);
+        $(".playAgain").on("click", function () {
+            currentSet = 0;
+            correct = 0;
+            incorrect = 0;
+            unanswered = 0;
+            reset();
+        })
+    }
+
+    $(".timer").hide();
+
+    $(".btn").on("click", function () {
+        $(".btn").hide();
+        $(".timer").show();
+        reset();
+    })
+
+
+    $(".guess").on("click", function () {
+        if ($(this).text() == questions[currentSet].answer) {
+            correct++;
+            currentSet++;
+            right();
+
         }
         else if ($(this).text() != questions[currentSet].answer) {
             incorrect++;
             currentSet++;
-            if (totQuestions == currentSet) {
-                results()
-                return;
-            }
-            else {
-                reset();
-                return;
-            }
+            wrong()
         }
     })
 
