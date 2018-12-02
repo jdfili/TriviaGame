@@ -1,17 +1,24 @@
 body{
-    background: white;;
+    margin: auto 0;
     color: white;
 }
+
+
 .jumbotron{
-    background: rgb(13,33,60);
+    background:rgb(13,33,60,0.9);
     margin: 250px;
     border: 2px solid orange;
+    position: relative;
+    top: 75px;
+    
+    
 }
 #title {
     background: rgb(255,162,0);
     color: rgb(13,33,60);
     border: 1px solid rgb(255,162,0);
     font-family: 'Faster One', cursive;
+    position: relative;
 }
 .timer {
     font-weight: bold;
@@ -23,8 +30,6 @@ body{
 }
 .guess {
     transition: 0.07s;
-    margin-left: 155px;
-    margin-right: 155px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
@@ -36,16 +41,28 @@ body{
 }
 .feedback{
     font-weight: bold;
-    font-size: 32px;
+    font-size: 24px;
     font-family: 'Roboto Condensed', sans-serif;
 }
 
 .btn {
-    background: rgb(39,78,55);
+    background: rgb(255,162,0);
     color: white;
     font-family: 'Roboto Condensed', sans-serif;
+    transition: 0.07s;
 }
+.btn:hover {
+    transform: scale(1.1)
+
+}
+
 .clicked {
     background: rgb(255,162,0);
+}
+
+@media only screen and (max-width: 768px) {
+.container {
+    max-width: 800px;
+}
 }
 

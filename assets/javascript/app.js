@@ -3,7 +3,7 @@ $(document).ready(function () {
     var incorrect = 0;
     var unanswered = 0;
     var currentSet = 0;
-    var totQuestions = 7;
+    var totQuestions = 10;
     var count = false
     var time;
     var intervalId;
@@ -30,7 +30,7 @@ $(document).ready(function () {
         "option3": "Andrei Kirilenko",
         "option4": "Carlos Boozer",
         "answer": "Rudy Gobert",
-        "right": "Correct! Although, he soon will be"
+        "right": "Correct! However, he does have a Defensive Player of the Year award!"
     }, {
         "question": "Which of these player was given the nickname 'Pistol'? ",
         "option1": "CJ Miles",
@@ -46,7 +46,7 @@ $(document).ready(function () {
         "option3": "Quin Snyder",
         "option4": "Jeff Van Gundy",
         "answer": "Jeff Van Gundy",
-        "right": "Right! Jeff Van Gundy is a former NBA coach for several teams, however none of which were the Utah Jazz."
+        "right": "Right! Jeff Van Gundy is a former NBA coach for several teams, however none of which were the Utah Jazz"
     }, {
         "question": "Which of these countries does not have a player currently playing for the Utah Jazz?",
         "option1": "Brazil",
@@ -54,7 +54,7 @@ $(document).ready(function () {
         "option3": "Australia",
         "option4": "Canada",
         "answer": "Canada",
-        "right": "Absolutley! Brazil: Raul Neto, France: Rudy Gobert, Australia: Joe Ingles and Dante Exum."
+        "right": "Absolutley! Brazil: Raul Neto, France: Rudy Gobert, Australia: Joe Ingles and Dante Exum"
     }, {
         "question": "During the 1993 All-Star Game held in Salt Lake City, who were the co-recipients for the game's MVP award? ",
         "option1": "Michael Jordan and Karl Malone",
@@ -62,17 +62,34 @@ $(document).ready(function () {
         "option3": "John Stockton and Karl Malone",
         "option4": "Charles Barkley and Michael Jordan",
         "answer": "John Stockton and Karl Malone",
-        "right": "+1 for you! Karl Malone had 28 points and 10 rebounds, while Stockton posted 9 points to go along with 15 assists"
+        "right": "YEP! Karl Malone had 28 points and 10 rebounds in the game, while Stockton posted 9 points to go along with 15 assists"
     }, {
+        "question": "Which city did the Jazz relocate from? ",
+        "option1": "New Orleans",
+        "option2": "Minneapolis",
+        "option3": "Atlanta",
+        "option4": "Los Angeles",
+        "answer": "New Orleans",
+        "right": "Correct! The Jazz moved to Utah from New Orleans in 1979"
+    }, {
+        "question": "The current owners of the Jazz are?",
+        "option1": "The Monsons",
+        "option2": "The Millers",
+        "option3": "The Jetsons",
+        "option4": "The Smiths",
+        "answer": "The Millers",
+        "right": "Right! The team was purchased by Larry H. Miller, and is now headed by his wife and kids"
+    },
+    {
         "question": "Bonus question: Did Jordan push off?",
         "option1": "Yes",
         "option2": "Yes",
         "option3": "Yes",
         "option4": "Yes",
         "answer": "Yes",
-        "right": "You nailed it!"
+        "right": "A true Jazz fan you are"
     }]
-    //---------------set-up functions------------------------------//
+    //---------------functions------------------------------//
     function reset() {
         time = 15;
         count = true;
@@ -113,12 +130,12 @@ $(document).ready(function () {
         $(".timer").text("Time left: 15");
         $(".game").hide();
         $(".feedback").show();
-        $(".feedback").text(questions[currentSet-1].right);
+        $(".feedback").text(questions[currentSet - 1].right);
         if (totQuestions == currentSet) {
-            setTimeout(results, 1000 * 3);
+            setTimeout(results, 1000 * 5);
         }
         else
-            setTimeout(reset, 1000 * 3);
+            setTimeout(reset, 1000 * 5);
     }
     function wrong() {
         count = false;
@@ -128,23 +145,24 @@ $(document).ready(function () {
         $(".feedback").show();
         $(".feedback").text("Sorry, the correct answer was " + questions[currentSet - 1].answer);
         if (totQuestions == currentSet) {
-            setTimeout(results, 1000 * 3);
+            setTimeout(results, 1000 * 5);
         }
         else {
-            setTimeout(reset, 1000 * 3);
+            setTimeout(reset, 1000 * 5);
         }
     }
-    function timesUp(){
+    function timesUp() {
         count = false;
         clearInterval(intervalId);
+        $(".timer").text("Time left: 15");
         $(".game").hide();
         $(".feedback").show();
-        $(".feedback").text("Times up! The correct answer was " + questions[currentSet-1].answer);
+        $(".feedback").text("Times up! The correct answer was " + questions[currentSet - 1].answer);
         if (totQuestions == currentSet) {
-            setTimeout(results, 1000 * 3);
+            setTimeout(results, 1000 * 5);
         }
         else {
-            setTimeout(reset, 1000 * 3);
+            setTimeout(reset, 1000 * 5);
         }
     }
     function results() {
@@ -176,7 +194,6 @@ $(document).ready(function () {
         $(".timer").show();
         reset();
     })
-
 
     $(".guess").on("click", function () {
         if ($(this).text() == questions[currentSet].answer) {
