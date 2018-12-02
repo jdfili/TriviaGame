@@ -65,6 +65,18 @@ body{
         margin-left: 150px;
     }
 }
+@media only screen and (max-width: 949x) {
+    .jumbotron {
+            width: 275px;
+            margin-left: 150px;
+        }
+    }
+
+@media only screen and (max-width: 719px) {
+    .jumbotron {
+        width: 250px;
+    }
+}
 
 @media only screen and (max-width: 640px) {
 .jumbotron {
